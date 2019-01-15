@@ -29,7 +29,9 @@
 */
 
 //Calculate Tip
-function calculate() {}
+function calculate() {
+  alert("Hello, are you ready?");
+}
 
 //click to call function
 document.getElementById("calculate").onclick = function() {
