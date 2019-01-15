@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tax Calculator - Shanghai</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="app.css" />
+  </head>
+  <body>
+    <div id="container">
+      <h1>Personal Tax Calculator - Shanghai</h1>
+      <div id="calculator">
+        <p>How much is your month salary before tax?</p>
+        <p class="field">
+          <span class="currency">¥</span>
+          <input id="salary" type="text" placeholder="Salary before tax" />
+        </p>
+        <hr />
+        <p>Your earning after tax:</p>
+        <p class="field">
+          <span class="currency">¥</span><input type="text" readonly />
+        </p>
+        <p class="field action">
+          <button type="button" id="calculate">Calculate!</button>
+        </p>
+      </div>
+      <!--calculator end-->
+    </div>
+    <!--container end-->
+    <script src="app.js"></script>
+  </body>
+</html>
