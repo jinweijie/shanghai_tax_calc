@@ -26,11 +26,69 @@
 
     个人所得税 = ( 税前工资 - 五险一金个人部分 - 起征点 ) * 税率 - 速算扣除数
 
+    实得工资 = 税前工资 - 个人所得税 -五险一金个人部分
 */
 
 //Calculate Tip
 function calculate() {
-  alert("Hello, are you ready?");
+  var elBaseSalary = document.getElementById('salary');
+  if(elBaseSalary.value == ""){
+    alert("Please input a number!");
+    return;
+  }
+  var baseSalary = parseFloat(elBaseSalary.value);
+  if(isNaN(baseSalary)){
+    alert("Please input a number!");
+    return;
+  }
+
+  // 1. calculate insurance
+  var insurance = 0;
+  insurance = baseSalary * (0.08 + 0.02 + 0.005 + 0.07);
+  /*if(insurance < 4279){
+    insurance = 4279;
+  }
+  else if(insurance > 21396){
+    insurance = 21396;
+  }*/
+  // 2. calculate tax
+  var tax = 0;
+  var taxSalary = baseSalary - insurance - 5000;
+
+  if(baseSalary <= 5000){
+    tax = 0;
+  }
+  else if(baseSalary > 5000&&baseSalary <= 12000){
+    tax = taxSalary * 0.1 - 210;
+  }
+  else if(baseSalary > 12000&&baseSalary <= 25000){
+    tax = taxSalary * 0.2 - 1410;
+  }
+  else if(baseSalary > 25000&&baseSalary <= 35000){
+    tax = taxSalary * 0.25 - 2660;
+  }
+  else if(baseSalary > 35000&&baseSalary <= 55000){
+    tax = taxSalary * 0.3 - 4410;
+  }
+  else if(baseSalary > 55000&&baseSalary <= 80000){
+    tax = taxSalary * 0.35 - 7160;
+  }
+  else if(baseSalary > 80000){
+    tax = taxSalary * 0.45 - 15160;
+  }
+
+  var finalSalary = baseSalary - tax - insurance;
+  var elIncome = document.getElementById('income');
+  elIncome.value = finalSalary.toFixed(2);
+
+  document.getElementById("fomular").innerText = baseSalary + " - "  + tax.toFixed(2) + " - " + insurance.toFixed(2) + " = " + finalSalary.toFixed(2);
+  /*
+  alert(tax);
+  alert(baseSalary);
+  alert(insurance);
+  alert(taxSalary);
+  alert(elIncome.value);
+  */
 }
 
 //click to call function
