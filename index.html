@@ -14,7 +14,7 @@
         <p>How much is your month salary before tax?</p>
         <p class="field">
           <span class="currency">¥</span>
-          <input id="salary" type="text" placeholder="Salary before tax" />
+          <input id="salary" autofocus = "autofocus" type="text" placeholder="Salary before tax" />
         </p>
         <hr />
         <p>Your earning after tax:</p>
@@ -22,7 +22,7 @@
           <span class="currency">¥</span
           ><input id="income" type="text" readonly />
         </p>
-        <p>Fomular: <span id="fomular"></span></p>
+        <p>Formula: <span id="formula"></span></p>
         <p class="field action">
           <button type="button" id="calculate">Calculate!</button>
         </p>
@@ -30,6 +30,10 @@
       <!--calculator end-->
     </div>
     <!--container end-->
-    <script src="app.js"></script>
+    <script src="app.js" language="javascript">
+     if(!("autofocus" in document.createElement("input"))){
+        document.getElementById("salary").focus();
+      }
+    </script>
   </body>
 </html>
