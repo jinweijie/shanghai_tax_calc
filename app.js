@@ -27,53 +27,80 @@
     个人所得税 = ( 税前工资 - 五险一金个人部分 - 起征点 ) * 税率 - 速算扣除数
 
     实得工资 = 税前工资 - 个人所得税 -五险一金个人部分
+
 */
 
 //Calculate Tip
 function calculate() {
   var elBaseSalary = document.getElementById('salary');
   if(elBaseSalary.value == ""){
-    alert("Please input a number!");
+    //alert("Please input a number!");
     return;
   }
   var baseSalary = parseFloat(elBaseSalary.value);
   if(isNaN(baseSalary)){
-    alert("Please input a number!");
+    //alert("Please input a number!");
+    return;
+  }
+  if(baseSalary < 500){
+    //alert("Invalid input!!");
     return;
   }
 
+  elBaseSalary.addEventListener("keyup", function(event){
+    event.preventDefault();
+      if(event.keyCode == 13){
+        document.getElementById("calculate").click();
+      }
+  });
+
   // 1. calculate insurance
   var insurance = 0;
-  insurance = baseSalary * (0.08 + 0.02 + 0.005 + 0.07);
-  /*if(insurance < 4279){
-    insurance = 4279;
+  var base = baseSalary;
+  if(base < 4279){
+    if(base <= 2300){
+      base = 4279;
+      insurance = base * (0.08 + 0.02 + 0.005) + 2300 * 0.07;
+    }
+    else{
+      base = 4279;
+      insurance = base * (0.08 + 0.02 + 0.005) + baseSalary * 0.07;
+    }
   }
-  else if(insurance > 21396){
-    insurance = 21396;
-  }*/
+  else if(base > 21396){
+    base = 21396;
+    insurance = base * (0.08 + 0.02 + 0.005 + 0.07);
+  }
+  else{
+    insurance = base * (0.08 + 0.02 + 0.005 + 0.07);
+  }
+
   // 2. calculate tax
   var tax = 0;
   var taxSalary = baseSalary - insurance - 5000;
 
-  if(baseSalary <= 5000){
-    tax = 0;
+  if(taxSalary <= 3000){
+    tax = taxSalary * 0.03;
+    if(tax < 0){
+      tax = 0;
+    }
   }
-  else if(baseSalary > 5000&&baseSalary <= 12000){
+  else if(taxSalary > 3000&&taxSalary <= 12000){
     tax = taxSalary * 0.1 - 210;
   }
-  else if(baseSalary > 12000&&baseSalary <= 25000){
+  else if(taxSalary > 12000&&taxSalary <= 25000){
     tax = taxSalary * 0.2 - 1410;
   }
-  else if(baseSalary > 25000&&baseSalary <= 35000){
+  else if(taxSalary > 25000&&taxSalary <= 35000){
     tax = taxSalary * 0.25 - 2660;
   }
-  else if(baseSalary > 35000&&baseSalary <= 55000){
+  else if(taxSalary > 35000&&taxSalary <= 55000){
     tax = taxSalary * 0.3 - 4410;
   }
-  else if(baseSalary > 55000&&baseSalary <= 80000){
+  else if(taxSalary > 55000&&taxSalary <= 80000){
     tax = taxSalary * 0.35 - 7160;
   }
-  else if(baseSalary > 80000){
+  else if(taxSalary > 80000){
     tax = taxSalary * 0.45 - 15160;
   }
 
@@ -81,15 +108,10 @@ function calculate() {
   var elIncome = document.getElementById('income');
   elIncome.value = finalSalary.toFixed(2);
 
-  document.getElementById("fomular").innerText = baseSalary + " - "  + tax.toFixed(2) + " - " + insurance.toFixed(2) + " = " + finalSalary.toFixed(2);
-  /*
-  alert(tax);
-  alert(baseSalary);
-  alert(insurance);
-  alert(taxSalary);
-  alert(elIncome.value);
-  */
+  document.getElementById("formula").innerText = baseSalary + " - "  + tax.toFixed(2) + " - " + insurance.toFixed(2) + " = " + finalSalary.toFixed(2);
+
 }
+
 
 //click to call function
 document.getElementById("calculate").onclick = function() {
