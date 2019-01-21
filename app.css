@@ -53,14 +53,20 @@ input {
   width: 50%;
 }
 
+.one{
+  background: #ad133a;
+}
+
+.two{
+  background: grey;
+}
 button {
   text-transform: uppercase;
   font-weight: bold;
-  display: block;
+  display: inline-block;
   margin: 30px auto;
-  background: #ad133a;
   border-radius: 5px;
-  width: 200px;
+  width: 150px;
   height: 50px;
   font-size: 17px;
   color: white;
