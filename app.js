@@ -33,20 +33,18 @@
 //Calculate Tip
 function calculate() {
   var elBaseSalary = document.getElementById('salary');
+  //input check
   if(elBaseSalary.value == ""){
-    //alert("Please input a number!");
     return;
   }
   var baseSalary = parseFloat(elBaseSalary.value);
   if(isNaN(baseSalary)){
-    //alert("Please input a number!");
     return;
   }
   if(baseSalary < 500){
-    //alert("Invalid input!!");
     return;
   }
-
+  //press Enter key to calculate
   elBaseSalary.addEventListener("keyup", function(event){
     event.preventDefault();
       if(event.keyCode == 13){
@@ -103,25 +101,23 @@ function calculate() {
   else if(taxSalary > 80000){
     tax = taxSalary * 0.45 - 15160;
   }
-
+  //calculate the income and display it in the second text box
   var finalSalary = baseSalary - tax - insurance;
   var elIncome = document.getElementById('income');
   elIncome.value = finalSalary.toFixed(2);
-
+  //display the formula
   document.getElementById("formula").innerText = baseSalary + " - "  + tax.toFixed(2) + " - " + insurance.toFixed(2) + " = " + finalSalary.toFixed(2);
-
 }
-
 
 //click to call function
 document.getElementById("calculate").onclick = function() {
   calculate();
 };
-
+//click to clear input
 document.getElementById("clear").onclick = function(){
   clear();
 };
-
+//function clear and focus again
 function clear(){
   document.getElementById("salary").value = "";
   document.getElementById("income").value = "";
