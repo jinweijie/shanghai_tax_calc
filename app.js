@@ -118,6 +118,16 @@ document.getElementById("calculate").onclick = function() {
   calculate();
 };
 
+document.getElementById("clear").onclick = function(){
+  clear();
+};
+
+function clear(){
+  document.getElementById("salary").value = "";
+  document.getElementById("income").value = "";
+  document.getElementById("salary").focus();
+}
+
 /*
 
 ************************ Javascript Reference **********************
