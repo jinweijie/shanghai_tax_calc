@@ -32,44 +32,41 @@
 
 //Calculate Tip
 function calculate() {
-  var elBaseSalary = document.getElementById('salary');
+  var elBaseSalary = document.getElementById("salary");
   //input check
-  if(elBaseSalary.value == ""){
+  if (elBaseSalary.value == "") {
     return;
   }
   var baseSalary = parseFloat(elBaseSalary.value);
-  if(isNaN(baseSalary)){
+  if (isNaN(baseSalary)) {
     return;
   }
-  if(baseSalary < 500){
+  if (baseSalary < 500) {
     return;
   }
-  //press Enter key to calculate
-  elBaseSalary.addEventListener("keyup", function(event){
-    event.preventDefault();
-      if(event.keyCode == 13){
-        document.getElementById("calculate").click();
-      }
-  });
+  // //press Enter key to calculate
+  // elBaseSalary.addEventListener("keyup", function(event) {
+  //   event.preventDefault();
+  //   if (event.keyCode == 13) {
+  //     document.getElementById("calculate").click();
+  //   }
+  // });
 
   // 1. calculate insurance
   var insurance = 0;
   var base = baseSalary;
-  if(base < 4279){
-    if(base <= 2300){
+  if (base < 4279) {
+    if (base <= 2300) {
       base = 4279;
       insurance = base * (0.08 + 0.02 + 0.005) + 2300 * 0.07;
-    }
-    else{
+    } else {
       base = 4279;
       insurance = base * (0.08 + 0.02 + 0.005) + baseSalary * 0.07;
     }
-  }
-  else if(base > 21396){
+  } else if (base > 21396) {
     base = 21396;
     insurance = base * (0.08 + 0.02 + 0.005 + 0.07);
-  }
-  else{
+  } else {
     insurance = base * (0.08 + 0.02 + 0.005 + 0.07);
   }
 
@@ -77,36 +74,37 @@ function calculate() {
   var tax = 0;
   var taxSalary = baseSalary - insurance - 5000;
 
-  if(taxSalary <= 3000){
+  if (taxSalary <= 3000) {
     tax = taxSalary * 0.03;
-    if(tax < 0){
+    if (tax < 0) {
       tax = 0;
     }
-  }
-  else if(taxSalary > 3000&&taxSalary <= 12000){
+  } else if (taxSalary > 3000 && taxSalary <= 12000) {
     tax = taxSalary * 0.1 - 210;
-  }
-  else if(taxSalary > 12000&&taxSalary <= 25000){
+  } else if (taxSalary > 12000 && taxSalary <= 25000) {
     tax = taxSalary * 0.2 - 1410;
-  }
-  else if(taxSalary > 25000&&taxSalary <= 35000){
+  } else if (taxSalary > 25000 && taxSalary <= 35000) {
     tax = taxSalary * 0.25 - 2660;
-  }
-  else if(taxSalary > 35000&&taxSalary <= 55000){
+  } else if (taxSalary > 35000 && taxSalary <= 55000) {
     tax = taxSalary * 0.3 - 4410;
-  }
-  else if(taxSalary > 55000&&taxSalary <= 80000){
+  } else if (taxSalary > 55000 && taxSalary <= 80000) {
     tax = taxSalary * 0.35 - 7160;
-  }
-  else if(taxSalary > 80000){
+  } else if (taxSalary > 80000) {
     tax = taxSalary * 0.45 - 15160;
   }
   //calculate the income and display it in the second text box
   var finalSalary = baseSalary - tax - insurance;
-  var elIncome = document.getElementById('income');
+  var elIncome = document.getElementById("income");
   elIncome.value = finalSalary.toFixed(2);
   //display the formula
-  document.getElementById("formula").innerText = baseSalary + " - "  + tax.toFixed(2) + " - " + insurance.toFixed(2) + " = " + finalSalary.toFixed(2);
+  document.getElementById("formula").innerText =
+    baseSalary +
+    " - " +
+    tax.toFixed(2) +
+    " - " +
+    insurance.toFixed(2) +
+    " = " +
+    finalSalary.toFixed(2);
 }
 
 //click to call function
@@ -114,15 +112,38 @@ document.getElementById("calculate").onclick = function() {
   calculate();
 };
 //click to clear input
-document.getElementById("clear").onclick = function(){
+document.getElementById("clear").onclick = function() {
   clear();
 };
 //function clear and focus again
-function clear(){
+function clear() {
   document.getElementById("salary").value = "";
   document.getElementById("income").value = "";
   document.getElementById("salary").focus();
 }
+
+window.onload = function() {
+  // focus salary textbox
+  document.getElementById("salary").focus();
+
+  // calculate when user presses enter key.
+  var elSalary = document.getElementById("salary");
+  elSalary.onkeydown = function(e) {
+    // prevent invalid character input
+    if (
+      (e.keyCode < 48 || e.keyCode > 57) &&
+      e.keyCode != 190 &&
+      e.keyCode != 8 &&
+      e.keyCode != 13
+    )
+      return false;
+    //if (e.keyCode === 65) return false;
+
+    if (e.keyCode == 13) {
+      calculate();
+    }
+  };
+};
 
 /*
 
